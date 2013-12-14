@@ -35,8 +35,10 @@ when "rhel", "fedora"
   else
     default['php']['packages'] = ['php', 'php-devel', 'php-cli', 'php-pear']
   end
-when "debian"
-  default['php']['conf_dir']      = '/etc/php5/cli'
+when "debian", "ubuntu"
+  default['php']['conf_dir']['apache2']  = '/etc/php5/apache2'
+  default['php']['conf_dir']['cli']     = '/etc/php5/cli'
+  default['php']['conf_dir']['cgi']     = '/etc/php5/cgi'
   default['php']['ext_conf_dir']  = '/etc/php5/conf.d'
   default['php']['fpm_user']      = 'www-data'
   default['php']['fpm_group']     = 'www-data'

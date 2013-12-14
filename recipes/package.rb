@@ -24,10 +24,38 @@ node['php']['packages'].each do |pkg|
   end
 end
 
-template "#{node['php']['conf_dir']}/php.ini" do
-  source "php.ini.erb"
-  owner "root"
-  group "root"
-  mode "0644"
-  variables(:directives => node['php']['directives'])
+case node[:platform]
+when "centos", "redhat", "fedora"
+  template "#{node['php']['conf_dir']}/php.ini" do
+    source "php.ini.erb"
+    owner "root"
+    group "root"
+    mode "0644"
+	variables(:directives => node['php']['directives'])
+  end
+
+when "debian","ubuntu"
+  template "#{node['php']['conf_dir']['apache2']}/php.ini" do
+    source "php-apache2.ini.erb"
+    owner "root"
+    group "root"
+    mode "0644"
+	variables(:directives => node['php']['directives'])
+  end
+
+  template "#{node['php']['conf_dir']['cgi']}/php.ini" do
+    source "php-cgi.ini.erb"
+    owner "root"
+    group "root"
+    mode "0644"
+	variables(:directives => node['php']['directives'])
+  end
+
+  template "#{node['php']['conf_dir']['cli']}/php.ini" do
+    source "php-cli.ini.erb"
+    owner "root"
+    group "root"
+    mode "0644"
+	variables(:directives => node['php']['directives'])
+  end
 end
