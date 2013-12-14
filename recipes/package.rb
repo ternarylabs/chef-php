@@ -36,7 +36,7 @@ when "centos", "redhat", "fedora"
 
 when "debian","ubuntu"
   template "#{node['php']['conf_dir']['apache2']}/php.ini" do
-    source "php-apache2.ini.erb"
+    source "php.ini.erb"
     owner "root"
     group "root"
     mode "0644"
@@ -44,7 +44,7 @@ when "debian","ubuntu"
   end
 
   template "#{node['php']['conf_dir']['cgi']}/php.ini" do
-    source "php-cgi.ini.erb"
+    source "php.ini.erb"
     owner "root"
     group "root"
     mode "0644"
@@ -52,7 +52,7 @@ when "debian","ubuntu"
   end
 
   template "#{node['php']['conf_dir']['cli']}/php.ini" do
-    source "php-cli.ini.erb"
+    source "php.ini.erb"
     owner "root"
     group "root"
     mode "0644"
